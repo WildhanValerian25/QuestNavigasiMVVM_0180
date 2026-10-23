@@ -2,11 +2,13 @@ package com.example.pertemuan6navigation.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import com.example.pertemuan6navigation.R
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -60,6 +62,21 @@ fun FormIsian(
                     thickness =  dimensionResource(R.dimen.thickness_divider),
                     color = Color.Red
                 )
+            Row{
+                jenisK.forEach { item ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = false,
+                            onClick = {}
+                        )
+                        Text(text = item)
+                    }
+                }
+
+
+
+                    }
+            }
 
         }
 
