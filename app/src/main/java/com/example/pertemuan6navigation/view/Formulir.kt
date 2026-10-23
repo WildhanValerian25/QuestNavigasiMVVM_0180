@@ -3,8 +3,12 @@ package com.example.pertemuan6navigation.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
@@ -62,7 +66,7 @@ fun FormIsian(
                     thickness =  dimensionResource(R.dimen.thickness_divider),
                     color = Color.Red
                 )
-            Row{
+            Row {
                 jenisK.forEach { item ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
@@ -72,10 +76,36 @@ fun FormIsian(
                         Text(text = item)
                     }
                 }
+                HorizontalDivider(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .width(250.dp),
+                    thickness = dimensionResource(R.dimen.thickness_divider),
+                    color = Color.Red
+                )
+                OutlinedTextField(
+                    value = "",
+                    singleLine = true,
+                    modifier = Modifier
+                        .padding(top = 20.dp)
+                        .width(250.dp),
+                    label = { Text(text = "Alamat") },
+                    onValueChange = {}
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .padding(20.dp),
+                    onClick = { OnSubmitBtnClick }
+                ) {
+                    Text(text = stringResource(id = R.string.submit))
+                }
 
 
-
-                    }
+            }
             }
 
         }
@@ -83,5 +113,5 @@ fun FormIsian(
 
 
     }
-}
+
 
