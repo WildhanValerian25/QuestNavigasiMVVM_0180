@@ -25,15 +25,17 @@ import androidx.compose.ui.unit.dp
 fun FormIsian(
     jenisK : List<String> = listOf("Laki-Laki", "Perempuan"),
     OnSubmitBtnClick : () -> Unit
-){
+) {
     Scaffold(
         modifier = Modifier,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.home), color = Color.White) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = colorResource(id = R.color.teal_700))
-            )   }
+                    containerColor = colorResource(id = R.color.teal_700)
+                )
+            )
+        }
     ) { isiRuang ->
         Column(
             modifier = Modifier.padding(isiRuang),
@@ -52,29 +54,6 @@ fun FormIsian(
         }
 
 
-
-
-
+    }
 }
 
-@Composable
-fun OutlineTextField(
-    value: String,
-    singleLine: Boolean,
-    modifier: Modifier,
-    label: () -> Unit,
-    onValueChange: () -> Unit
-) {
-    TODO("Not yet implemented")
-}
-
-@Composable
-fun OutlineTextField(
-    value: String,
-    singleLine: Boolean,
-    modifier: Modifier,
-    label: () -> Unit,
-    onValueChange: () -> Unit
-) {
-    TODO("Not yet implemented")
-}
