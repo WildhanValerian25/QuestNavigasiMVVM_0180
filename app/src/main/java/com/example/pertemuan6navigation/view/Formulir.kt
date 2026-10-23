@@ -4,10 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -27,12 +30,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormIsian(
-    jenisK : List<String> = listOf("Laki-Laki", "Perempuan"),
-    OnSubmitBtnClick : () -> Unit
+    jenisK: List<String> = listOf("Laki-Laki", "Perempuan"),
+    OnSubmitBtnClick: () -> Unit // Tetap pakai parameter aslimu
 ) {
     Scaffold(
         modifier = Modifier,
@@ -46,7 +48,10 @@ fun FormIsian(
         }
     ) { isiRuang ->
         Column(
-            modifier = Modifier.padding(isiRuang),
+            modifier = Modifier
+                .padding(isiRuang)
+                .fillMaxSize() // Memastikan Column mengambil seluruh layar
+                .verticalScroll(rememberScrollState()), // PERBAIKAN 1: Tambahkan scroll agar tidak tertutup keyboard
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -59,13 +64,16 @@ fun FormIsian(
                 label = { Text(text = "Nama Lengkap") },
                 onValueChange = {}
             )
-                HorizontalDivider(
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .width(250.dp),
-                    thickness =  dimensionResource(R.dimen.thickness_divider),
-                    color = Color.Red
-                )
+
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .width(250.dp),
+                thickness = dimensionResource(R.dimen.thickness_divider),
+                color = Color.Red
+            )
+
+            // PERBAIKAN 2: Row ini khusus HANYA untuk menata RadioButton secara horizontal
             Row {
                 jenisK.forEach { item ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -76,42 +84,38 @@ fun FormIsian(
                         Text(text = item)
                     }
                 }
-                HorizontalDivider(
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .width(250.dp),
-                    thickness = dimensionResource(R.dimen.thickness_divider),
-                    color = Color.Red
-                )
-                OutlinedTextField(
-                    value = "",
-                    singleLine = true,
-                    modifier = Modifier
-                        .padding(top = 20.dp)
-                        .width(250.dp),
-                    label = { Text(text = "Alamat") },
-                    onValueChange = {}
-                )
+            } // <-- TUTUP KURUNG ROW NYA DI SINI
 
-                Spacer(modifier = Modifier.height(30.dp))
+            // Komponen di bawah ini sekarang aman berada di dalam Column utama (Tersusun ke bawah)
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .width(250.dp),
+                thickness = dimensionResource(R.dimen.thickness_divider),
+                color = Color.Red
+            )
 
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth(1f)
-                        .padding(25.dp),
-                    onClick = { OnSubmitBtnClick }
-                ) {
-                    Text(text = stringResource(id = R.string.submit))
-                }
+            OutlinedTextField(
+                value = "",
+                singleLine = true,
+                modifier = Modifier
+                    .padding(top = 20.dp)
+                    .width(250.dp),
+                label = { Text(text = "Alamat") },
+                onValueChange = {}
+            )
 
+            Spacer(modifier = Modifier.height(30.dp))
 
-            }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .padding(25.dp),
+                onClick = OnSubmitBtnClick // PERBAIKAN 3: Hapus kurung kurawal agar tombol berfungsi saat diklik
+            ) {
+                Text(text = stringResource(id = R.string.submit))
             }
 
         }
-
-
-
     }
-
-
+}
